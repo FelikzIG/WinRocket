@@ -66,12 +66,12 @@ namespace Class
                         managementObject.Put();
                     }
 
-                    Console.WriteLine("Windows Update service startup type has been set to Disabled.");
+                    
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
+                //report eeror if wanted
             }
 
         }
@@ -102,12 +102,12 @@ namespace Class
                         managementObject.Put();
                     }
 
-                    Console.WriteLine("Windows Update service startup type has been set to Disabled.");
+                    
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
+                //report eeror if wanted
             }
         }
     }
