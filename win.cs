@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,11 +14,6 @@ using System.Windows.Forms;
 
 namespace Class
 {
-    internal class win
-    {
-
-    }
-
     public class WinRocket
     {
         //Clears the inputed directory
@@ -103,6 +99,66 @@ namespace Class
                     }
 
                     
+                }
+            }
+            catch (Exception ex)
+            {
+                //report eeror if wanted
+            }
+        }
+
+        public void disableWinDefender()
+        {
+            try
+            {
+                // PowerShell command to disable Windows Defender
+                string command = "Set-MpPreference -DisableRealtimeMonitoring $true";
+
+                // Create a new process to run PowerShell
+                ProcessStartInfo processInfo = new ProcessStartInfo("powershell.exe", command)
+                {
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using (Process process = Process.Start(processInfo))
+                {
+                    // Read the output and error
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+                    process.WaitForExit();
+                }
+            }
+            catch (Exception ex)
+            {
+                //report eeror if wanted
+            }
+        }
+
+        public void enableWinDefender()
+        {
+            try
+            {
+                // PowerShell command to enable Windows Defender
+                string command = "Set-MpPreference -DisableRealtimeMonitoring $false; Start-Service -Name WinDefend";
+
+                // Create a new process to run PowerShell
+                ProcessStartInfo processInfo = new ProcessStartInfo("powershell.exe", command)
+                {
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using (Process process = Process.Start(processInfo))
+                {
+                    // Read the output and error
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+                    process.WaitForExit();
                 }
             }
             catch (Exception ex)
