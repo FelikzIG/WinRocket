@@ -263,5 +263,44 @@ namespace Class
                 
             }
         }
+
+        //Disables Superfetch (SysMain)
+        public void disableSuperfetch()
+        {
+            try
+            {
+                // Name of the Superfetch service
+                string serviceName = "SysMain";
+
+                // Create a ServiceController object
+                using (ServiceController service = new ServiceController(serviceName))
+                {
+                    // Check if the service is running
+                    if (service.Status == ServiceControllerStatus.Running)
+                    {
+                        // Stop the service
+                        service.Stop();
+                        service.WaitForStatus(ServiceControllerStatus.Stopped);
+                    }
+
+                    // Disable the service
+                    using (var regKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\SysMain", true))
+                    {
+                        if (regKey != null)
+                        {
+                            regKey.SetValue("Start", 4, Microsoft.Win32.RegistryValueKind.DWord); // 4 = Disabled
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
     }
 }
