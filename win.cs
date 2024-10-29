@@ -221,5 +221,47 @@ namespace Class
                 
             }
         }
+
+        //Uninstall Microsoft One Drive
+        public void removeWinOD()
+        {
+            try
+            {
+                // Determine the architecture of the system
+                string uninstallCommand;
+
+                if (Environment.Is64BitOperatingSystem)
+                {
+                    // Use the 64-bit uninstall command
+                    uninstallCommand = @"%SystemRoot%\System32\OneDriveSetup.exe /uninstall";
+                }
+                else
+                {
+                    // Use the 32-bit uninstall command
+                    uninstallCommand = @"%SystemRoot%\SysWOW64\OneDriveSetup.exe /uninstall";
+                }
+
+                // Create a process to execute the uninstall command
+                ProcessStartInfo processInfo = new ProcessStartInfo("cmd.exe", "/c " + uninstallCommand)
+                {
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using (Process process = Process.Start(processInfo))
+                {
+                    // Read the output and error
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+                    process.WaitForExit();
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
     }
 }
