@@ -33,6 +33,15 @@ Disables Windows Update
 WinRocket rocket = new WinRocket();
 rocket.disableWinUpdate();
 
+## disableSuperfetch
+Disables Superfetch (now called SysMain)
+
+## Usage/Examples
+
+```csharp
+WinRocket rocket = new WinRocket();
+rocket.disableSuperfetch();
+
 ```
 
 
