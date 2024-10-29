@@ -7,7 +7,7 @@ WinRocket is a C# library to help you boost the performance of the Windows OS. T
 
 
 ## dirClear
-dirClear removes all files within the inputted directory path.
+Removes all files within the inputted directory path.
 
 ## Usage/Examples
 
@@ -24,7 +24,16 @@ catch (Exception Er)
 }
 
 ```
+## disableWinUpdate
+Disables Windows Update
 
+## Usage/Examples
+
+```csharp
+WinRocket rocket = new WinRocket();
+rocket.disableWinUpdate();
+
+```
 
 
 
