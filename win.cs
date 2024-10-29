@@ -32,6 +32,7 @@ namespace Class
             }
         }
 
+        //Disable Windows Update
         public void disableWinUpdate()
         {
             //0 = Boot
@@ -72,6 +73,7 @@ namespace Class
 
         }
 
+        //Enable Windows Update
         public void enableWinUpdate()
         {
             //0 = Boot
@@ -107,6 +109,7 @@ namespace Class
             }
         }
 
+        //Disable Windows Defender (Realtime protection)
         public void disableWinDefender()
         {
             try
@@ -137,6 +140,7 @@ namespace Class
             }
         }
 
+        //Enable Windows Defender (Realtime protection)
         public void enableWinDefender()
         {
             try
@@ -164,6 +168,57 @@ namespace Class
             catch (Exception ex)
             {
                 //report eeror if wanted
+            }
+        }
+
+        //Disable Windows Game Mode
+        public void disableWinGM()
+        {
+            try
+            {
+                // Open the GameBar key
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\GameBar", true))
+                {
+                    if (key != null)
+                    {
+                        // Set the GameModeEnabled value to 0 (disabled)
+                        key.SetValue("GameModeEnabled", 0, RegistryValueKind.DWord);
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+
+        //Enable Windows Game Mode
+        public void enableWinGM()
+        {
+            try
+            {
+                // Open the GameBar key
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\GameBar", true))
+                {
+                    if (key != null)
+                    {
+                        // Set the GameModeEnabled value to 1 (enabled)
+                        key.SetValue("GameModeEnabled", 1, RegistryValueKind.DWord);
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
     }
