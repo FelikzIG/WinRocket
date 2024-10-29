@@ -35,12 +35,6 @@ namespace Class
         //Disable Windows Update
         public void disableWinUpdate()
         {
-            //0 = Boot
-            //1 = System
-            //2 = Automatic
-            //3 = Manual
-            //4 = Disabled
-
             try
             {
                 // Define the service name
@@ -63,12 +57,11 @@ namespace Class
                         managementObject.Put();
                     }
 
-                    
                 }
             }
             catch (Exception ex)
             {
-                //report eeror if wanted
+                
             }
 
         }
@@ -76,12 +69,6 @@ namespace Class
         //Enable Windows Update
         public void enableWinUpdate()
         {
-            //0 = Boot
-            //1 = System
-            //2 = Automatic
-            //3 = Manual
-            //4 = Disabled
-
             try
             {
                 // Define the service name
@@ -90,8 +77,8 @@ namespace Class
                 // Create a ServiceController instance
                 using (ServiceController service = new ServiceController(serviceName))
                 {
-                        service.Start();
-                        service.WaitForStatus(ServiceControllerStatus.Running);
+                    service.Start();
+                    service.WaitForStatus(ServiceControllerStatus.Running);
 
                     // Change the startup type to Disabled
                     using (var managementObject = new System.Management.ManagementObject($"Win32_Service.Name='{serviceName}'"))
@@ -100,12 +87,11 @@ namespace Class
                         managementObject.Put();
                     }
 
-                    
                 }
             }
             catch (Exception ex)
             {
-                //report eeror if wanted
+                
             }
         }
 
@@ -136,7 +122,7 @@ namespace Class
             }
             catch (Exception ex)
             {
-                //report eeror if wanted
+                
             }
         }
 
@@ -167,7 +153,7 @@ namespace Class
             }
             catch (Exception ex)
             {
-                //report eeror if wanted
+                
             }
         }
 
@@ -186,16 +172,15 @@ namespace Class
                     }
                     else
                     {
-                        
+
                     }
                 }
             }
             catch (Exception ex)
             {
-                
+
             }
         }
-
 
         //Enable Windows Game Mode
         public void enableWinGM()
@@ -212,13 +197,13 @@ namespace Class
                     }
                     else
                     {
-                        
+
                     }
                 }
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -260,7 +245,7 @@ namespace Class
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -291,14 +276,14 @@ namespace Class
                         }
                         else
                         {
-                            
+
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -309,8 +294,7 @@ namespace Class
             {
                 // Get the path to the Downloads folder
                 string downloadsFolder = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                    "Downloads");
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
 
                 // Get all files in the Downloads folder
                 string[] files = Directory.GetFiles(downloadsFolder);
@@ -323,7 +307,34 @@ namespace Class
             }
             catch (Exception ex)
             {
-                
+
+            }
+        }
+
+        public void clearTemp()
+        {
+            try
+            {
+                // Get the path to the Temp directory
+                string tempDirectory = Path.GetTempPath();
+
+                // Get all files in the Temp directory
+                string[] files = Directory.GetFiles(tempDirectory);
+                foreach (string file in files)
+                {
+                    File.Delete(file);
+                }
+
+                // Get all subdirectories and delete them
+                string[] directories = Directory.GetDirectories(tempDirectory);
+                foreach (string directory in directories)
+                {
+                    Directory.Delete(directory, true); // 'true' to delete recursively
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }
