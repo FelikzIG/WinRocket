@@ -264,7 +264,6 @@ namespace Class
             }
         }
 
-        //Disables Superfetch (SysMain)
         public void disableSuperfetch()
         {
             try
@@ -295,6 +294,31 @@ namespace Class
                             
                         }
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        //Remove all files within the downloads folder
+        public void clearDownloads()
+        {
+            try
+            {
+                // Get the path to the Downloads folder
+                string downloadsFolder = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                    "Downloads");
+
+                // Get all files in the Downloads folder
+                string[] files = Directory.GetFiles(downloadsFolder);
+
+                // Loop through and delete each file
+                foreach (string file in files)
+                {
+                    File.Delete(file);
                 }
             }
             catch (Exception ex)
